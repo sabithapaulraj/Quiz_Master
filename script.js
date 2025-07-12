@@ -9,20 +9,20 @@ function calculateScore(callback) {
     return callback(answers, correctAnswers);
 }
 
-function score(userInput, correctAnswers) {
+function score(answers, correctAnswers) {
     let score = 0;
-    for (let i = 0; i < userInput.length; i++) {
-        if (userInput[i] === correctAnswers[i]) {
+    for (let i = 0; i < answers.length; i++) {
+        if (answers[i] === correctAnswers[i]) {
             score++;
         }
     }
     return score;
 }
 
-function percentage(userInput, correctAnswers) {
+function percentage(answers, correctAnswers) {
     let correct = 0;
-    for (let i = 0; i < userInput.length; i++) {
-        if (userInput[i] === correctAnswers[i]) {
+    for (let i = 0; i < answers.length; i++) {
+        if (answers[i] === correctAnswers[i]) {
             correct++;
         }
     }
