@@ -9,33 +9,45 @@ function calculateScore(callback) {
     return callback(answers, correctAnswers);
 }
 
-function score(answers, correctAnswers) {
+function score(userInput, correctAnswers) {
     let score = 0;
-    for (let i = 0; i < answers.length; i++) {
-        if (answers[i] === correctAnswers[i]) {
+    for (let i = 0; i < userInput.length; i++) {
+        if (userInput[i] === correctAnswers[i]) {
             score++;
         }
     }
     return score;
 }
 
-function percentage(answers, correctAnswers) {
+function percentage(userInput, correctAnswers) {
     let correct = 0;
-    for (let i = 0; i < answers.length; i++) {
-        if (answers[i] === correctAnswers[i]) {
+    for (let i = 0; i < userInput.length; i++) {
+        if (userInput[i] === correctAnswers[i]) {
             correct++;
         }
     }
     return ((correct / correctAnswers.length) * 100).toFixed(2);
 }
 
+function lenientScore(userInput, correctAnswers) {
+    let score = 0;
+    for (let i = 0; i < userInput.length; i++) {
+        if (userInput[i] === correctAnswers[i] || Math.abs(userInput[i] - correctAnswers[i]) <= 2) {
+            score++;
+        }
+    }
+    return score;
+}
+
 document.getElementById('check').addEventListener('click', function() {
     const finalscore = calculateScore(score);
     const finalpercentage = calculateScore(percentage);
+    const lenient = calculateScore(lenientScore);
     
     const display = document.getElementById('display');
     display.innerHTML = `
-        <p>Score: ${finalscore} / ${correctAnswers.length}</p>
+        <p>Normal Score: ${finalscore} / ${correctAnswers.length}</p>
+        <p>Lenient Score: ${lenient} / ${correctAnswers.length}</p>
         <p>Percentage: ${finalpercentage}% out of 100%</p>
     `;
 }); 
